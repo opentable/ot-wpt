@@ -46,7 +46,12 @@ function notifyStatsd(data, options, done) {
   })
 
   async.series([
-    // TBC
+    (callback) => {
+      client.gauge("fv.speedindex", data.data.average.firstView.SpeedIndex, callback)
+    },
+    (callback) => {
+      client.gauge("rv.speedindex", data.data.average.repeatView.SpeedIndex, callback)
+    }
   ], () => {
     client.close()
     done()
