@@ -18,7 +18,8 @@ wpt({
   statsdPrefix: 'PREFIX_HERE',
   // These options are passed through to the webpagetest-api module
   wptOptions: {
-    runs: 1
+    runs: 1,
+    location: 'Dulles:Chrome'
   }
 }, function() {
   // Test finished
