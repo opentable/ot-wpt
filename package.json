@@ -1,13 +1,20 @@
 {
   "name": "ot-wpt",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Submits webpagetest results to hipchat, statsd, and logstash",
   "main": "dist/index.js",
   "scripts": {
     "build": "babel src -d dist",
     "dev": "babel --watch src -d dist",
     "lint": "eslint .",
-    "test": "npm run lint"
+    "test": "npm run build && npm run lint"
+  },
+  "publishConfig": {
+    "registry": "http://artifactory.otenv.com/artifactory/api/npm/npm-local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/opentable/ot-wpt.git"
   },
   "keywords": [
     "opentable",
