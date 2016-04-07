@@ -1,11 +1,11 @@
-import * as WebPageTest from "webpagetest"
-import * as Hipchat from "hipchat-client"
-import * as format from "string-format"
-import * as async from "async"
-import * as logstashRedis from "logstash-redis"
-import * as Statsd from "node-statsd"
-import * as os from "os"
-import * as assert from "assert"
+import WebPageTest from "webpagetest"
+import Hipchat from "hipchat-client"
+import format from "string-format"
+import async from "async"
+import logstashRedis from "logstash-redis"
+import Statsd from "node-statsd"
+import os from "os"
+import assert from "assert"
 
 function notifyHipchat(message, options, done) {
   const hipchatClient = new Hipchat(options.hipchatApiKey)
