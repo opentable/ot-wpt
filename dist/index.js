@@ -77,9 +77,11 @@ function notifyStatsd(data, options, done) {
     prefix: options.statsdPrefix
   });
 
-  async.series([
-    // TBC
-  ], function () {
+  async.series([function (callback) {
+    client.gauge("fv.speedindex", data.data.average.firstView.SpeedIndex, callback);
+  }, function (callback) {
+    client.gauge("rv.speedindex", data.data.average.repeatView.SpeedIndex, callback);
+  }], function () {
     client.close();
     done();
   });
