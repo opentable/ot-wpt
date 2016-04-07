@@ -5,40 +5,40 @@ exports.default = makeRequest;
 
 var _webpagetest = require("webpagetest");
 
-var WebPageTest = _interopRequireWildcard(_webpagetest);
+var _webpagetest2 = _interopRequireDefault(_webpagetest);
 
 var _hipchatClient = require("hipchat-client");
 
-var Hipchat = _interopRequireWildcard(_hipchatClient);
+var _hipchatClient2 = _interopRequireDefault(_hipchatClient);
 
 var _stringFormat = require("string-format");
 
-var format = _interopRequireWildcard(_stringFormat);
+var _stringFormat2 = _interopRequireDefault(_stringFormat);
 
 var _async = require("async");
 
-var async = _interopRequireWildcard(_async);
+var _async2 = _interopRequireDefault(_async);
 
 var _logstashRedis = require("logstash-redis");
 
-var logstashRedis = _interopRequireWildcard(_logstashRedis);
+var _logstashRedis2 = _interopRequireDefault(_logstashRedis);
 
 var _nodeStatsd = require("node-statsd");
 
-var Statsd = _interopRequireWildcard(_nodeStatsd);
+var _nodeStatsd2 = _interopRequireDefault(_nodeStatsd);
 
 var _os = require("os");
 
-var os = _interopRequireWildcard(_os);
+var _os2 = _interopRequireDefault(_os);
 
 var _assert = require("assert");
 
-var assert = _interopRequireWildcard(_assert);
+var _assert2 = _interopRequireDefault(_assert);
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function notifyHipchat(message, options, done) {
-  var hipchatClient = new Hipchat(options.hipchatApiKey);
+  var hipchatClient = new _hipchatClient2.default(options.hipchatApiKey);
   var params = {
     message: message,
     room_id: options.roomId,
@@ -55,7 +55,7 @@ function notifyHipchat(message, options, done) {
 }
 
 function notifyLogstash(data, options, done) {
-  var logger = logstashRedis.createLogger(options.logstashHost, options.logstashPort, "logstash");
+  var logger = _logstashRedis2.default.createLogger(options.logstashHost, options.logstashPort, "logstash");
 
   logger.log({
     "@timestamp": new Date().toISOString(),
@@ -63,7 +63,7 @@ function notifyLogstash(data, options, done) {
     logname: "result",
     formatversion: "v1",
     type: "wpt-service-result-v1",
-    host: os.hostname(),
+    host: _os2.default.hostname(),
     wpt: data
   }, function () {
     logger.close(done);
@@ -71,13 +71,13 @@ function notifyLogstash(data, options, done) {
 }
 
 function notifyStatsd(data, options, done) {
-  var client = new Statsd({
+  var client = new _nodeStatsd2.default({
     host: options.statsdHost,
     port: options.statsdPort,
     prefix: options.statsdPrefix
   });
 
-  async.series([function (callback) {
+  _async2.default.series([function (callback) {
     client.gauge("fv.speedindex", data.data.average.firstView.SpeedIndex, callback);
   }, function (callback) {
     client.gauge("rv.speedindex", data.data.average.repeatView.SpeedIndex, callback);
@@ -96,10 +96,10 @@ function getTestResults(wpt, testId, options, done) {
       return;
     }
 
-    var message = format("WPT results: <a href='{0}'>{0}</a><br />Page under test: {1}<br /> Load Time: {2} <br />TTFB: {3}", data.data.summary, options.testUrl, data.data.median.firstView.loadTime, data.data.median.firstView.TTFB);
+    var message = (0, _stringFormat2.default)("WPT results: <a href='{0}'>{0}</a><br />Page under test: {1}<br /> Load Time: {2} <br />TTFB: {3}", data.data.summary, options.testUrl, data.data.median.firstView.loadTime, data.data.median.firstView.TTFB);
     console.log(message);
 
-    async.series([function (callback) {
+    _async2.default.series([function (callback) {
       if (options.notifyHipchat) {
         notifyHipchat(message, options, callback);
       } else {
@@ -141,9 +141,9 @@ function checkTestStatus(wpt, testId, options, done) {
 }
 
 function makeRequest(options, done) {
-  assert(options.hipchatApiKey !== undefined && options.wptApiKey !== undefined, "Please provide both hipchatApiKey and wptApiKey");
+  (0, _assert2.default)(options.hipchatApiKey !== undefined && options.wptApiKey !== undefined, "Please provide both hipchatApiKey and wptApiKey");
 
-  var wpt = new WebPageTest(options.instanceUrl, options.wptApiKey);
+  var wpt = new _webpagetest2.default(options.instanceUrl, options.wptApiKey);
 
   wpt.runTest(options.testUrl, options.wptOptions, function (err, data) {
     if (data.statusCode === 200) {
