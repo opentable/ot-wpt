@@ -9,6 +9,13 @@
     "lint": "eslint .",
     "test": "npm run lint"
   },
+  "publishConfig": {
+    "registry": "http://artifactory.otenv.com/artifactory/api/npm/npm-local"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/opentable/ot-wpt.git"
+  },
   "keywords": [
     "opentable",
     "webpagetest"
