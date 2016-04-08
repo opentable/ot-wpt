@@ -13,7 +13,7 @@ wpt({
   wpt: {
     runs: 1,
     location: 'Dulles:Chrome'
-  }
+  },
   hipchat: {
     apiKey: 'API_KEY_HERE',
     roomId: 12345
