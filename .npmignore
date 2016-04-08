@@ -3,3 +3,4 @@ src
 .babelrc
 .editorconfig
 .eslintrc
+.eslintignore

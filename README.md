@@ -1,6 +1,12 @@
 # ot-wpt
 Initiates a run on a given webpagetest instance and logs to hipchat, statsd, and logstash.
 
+## Installation
+
+```bash
+$ npm install ot-wpt --save-dev
+```
+
 ## Usage
 
 ```js
