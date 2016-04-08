@@ -1,4 +1,4 @@
-# ot-wpt
+# ot-wpt [![Build Status](https://travis-ci.org/opentable/ot-wpt.svg?branch=master)](https://travis-ci.org/opentable/ot-wpt)
 Initiates a run on a given webpagetest instance and logs to hipchat, statsd, and logstash.
 
 ## Installation
