@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+- '5'
+- '4'
+- '0.12'
+- '0.11'
+- '0.10'
+deploy:
+  provider: npm
+  email: timmywillisn@gmail.com
+  api_key:
+    secure: CO/2x+A8ojq8IkXPDFETSWy+oN5nMBobPKqWVD4U8DkbVNbCHtDXkoxNJ3Ud3IBT+zmKDWUzpu1LNGJBgb6mbAPrS2sNv1k48qE0dzB01uBeh+z0nXYLFhq0S2fUEmzcoPz8MK5AnkNYsgu2gnOKTAO8X7CKSy+oXUm3bShRs7jKTEDqqggIuTLgk+XWtxhmVrb3+3iH/5plhCAa0QiiBUu/AJ5Z+Ufj69E1YL+UgdXFIcaq0lsZRIfQyeiX3Sw05FBxrAOuIYvcs6GhVEOrVCZrReDen0GrBrd9fiSVU2cVhjYQyR8fvxx8J6bhQK22lQclxBfKDJYecTMFrtLFWjkBVvtBakV1vHwhNj38+6/sV5CqfMum6IMdp8C4WllykbndOHy28f7+MXsZ9/yiSmHk2hmMNWstU+xBRznZLX51pspD6quiqTevUq3ZstsGuy6bwnHEbAlJ1+059kNmqypZHOvnjV6Pke9QKN7fkjh9d+myKb4t+ur2aDPDgTLgKiKgiqEnpRzNRle+2SLQMarkKsfKGzQQV6jllBB26cOfQSMYAA92vY0k6AAq+5hDQDt6ykcaaFQvYFbpO8pH8H/3Mc1D0Br/IkY3L6fYmq3HCsqEv0rVZNyxFTEJIL56wmH8kNsBnrYWO1/VjVOlq2NF9mxKu3zNuabCYSL8c5A=
+  on:
+    tags: true
+    repo: opentable/ot-wpt
