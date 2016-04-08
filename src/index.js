@@ -8,10 +8,10 @@ import os from "os"
 import assert from "assert"
 
 function notifyHipchat(message, options, done) {
-  const hipchatClient = new Hipchat(options.hipchatApiKey)
+  const hipchatClient = new Hipchat(options.hipchat.apiKey)
   const params = {
     message,
-    room_id: options.roomId,
+    room_id: options.hipchat.roomId,
     from: "WebPageTest",
     color: "yellow"
   }
@@ -25,7 +25,7 @@ function notifyHipchat(message, options, done) {
 }
 
 function notifyLogstash(data, options, done) {
-  const logger = logstashRedis.createLogger(options.logstashHost, options.logstashPort, "logstash")
+  const logger = logstashRedis.createLogger(options.logstash.host, options.logstash.port, "logstash")
 
   logger.log({
     "@timestamp": (new Date).toISOString(),
@@ -40,9 +40,9 @@ function notifyLogstash(data, options, done) {
 
 function notifyStatsd(data, options, done) {
   const client = new Statsd({
-    host: options.statsdHost,
-    port: options.statsdPort,
-    prefix: options.statsdPrefix
+    host: options.statsd.host,
+    port: options.statsd.port,
+    prefix: options.statsd.prefix
   })
 
   async.series([
@@ -78,21 +78,21 @@ function getTestResults(wpt, testId, options, done) {
 
     async.series([
       (callback) => {
-        if (options.notifyHipchat) {
+        if (options.hipchat) {
           notifyHipchat(message, options, callback)
         } else {
           callback()
         }
       },
       (callback) => {
-        if (options.notifyLogstash) {
+        if (options.logstash) {
           notifyLogstash(data, options, callback)
         } else {
           callback()
         }
       },
       (callback) => {
-        if (options.notifyStatsd) {
+        if (options.statsd) {
           notifyStatsd(data, options, callback)
         } else {
           callback()
@@ -122,14 +122,11 @@ function checkTestStatus(wpt, testId, options, done) {
 }
 
 export default function makeRequest(options, done) {
-  assert(
-    options.hipchatApiKey !== undefined && options.wptApiKey !== undefined,
-    "Please provide both hipchatApiKey and wptApiKey"
-  )
+  assert(options.apiKey !== undefined, "Please provide a valid webpagetest api key")
 
-  const wpt = new WebPageTest(options.instanceUrl, options.wptApiKey)
+  const wpt = new WebPageTest(options.instanceUrl, options.apiKey)
 
-  wpt.runTest(options.testUrl, options.wptOptions, (err, data) => {
+  wpt.runTest(options.testUrl, options.wpt, (err, data) => {
     if (data.statusCode === 200) {
       const testId = data.data.testId
       checkTestStatus(wpt, testId, options, done)
