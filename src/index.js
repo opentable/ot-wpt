@@ -45,6 +45,10 @@ function notifyStatsd(data, options, done) {
     prefix: options.statsd.prefix
   })
 
+  client.socket.on("close", () => {
+    done()
+  })
+
   async.series([
     (callback) => {
       client.gauge("fv.speedindex", data.data.average.firstView.SpeedIndex, callback)
@@ -54,7 +58,6 @@ function notifyStatsd(data, options, done) {
     }
   ], () => {
     client.close()
-    done()
   })
 }
 
@@ -76,7 +79,7 @@ function getTestResults(wpt, testId, options, done) {
     )
     console.log(message)
 
-    delete data.data.runs;
+    delete data.data.runs
 
     async.series([
       (callback) => {
