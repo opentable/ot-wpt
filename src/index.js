@@ -76,7 +76,7 @@ function getTestResults(wpt, testId, options, done) {
     )
     console.log(message)
 
-    delete data.data.runs;
+    delete data.data.runs
 
     async.series([
       (callback) => {
