@@ -76,6 +76,8 @@ function getTestResults(wpt, testId, options, done) {
     )
     console.log(message)
 
+    delete data.data.runs;
+
     async.series([
       (callback) => {
         if (options.hipchat) {
