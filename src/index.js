@@ -65,6 +65,10 @@ function getTestResults(wpt, testId, options, done) {
   return wpt.getTestResults(testId, (err, data) => {
     console.log(`http://www.webpagetest.org/result/${testId}/`)
 
+    if (options.wpt.runs !== data.data.successfulFVRuns) {
+      err = 1
+    }
+
     if (err > 0) {
       done(err)
       return
