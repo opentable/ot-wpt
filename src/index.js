@@ -131,7 +131,7 @@ function checkTestStatus(wpt, testId, options, done) {
 }
 
 export default function makeRequest(options, done) {
-  assert(options.apiKey !== undefined, "Please provide a valid webpagetest api key")
+  assert(options.instanceUrl || options.apiKey, "Please provide a valid webpagetest api key")
 
   const wpt = new WebPageTest(options.instanceUrl, options.apiKey)
 
