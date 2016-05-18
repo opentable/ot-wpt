@@ -7,6 +7,17 @@ import Statsd from "node-statsd"
 import os from "os"
 import assert from "assert"
 
+function gaugeStats(prefix, client, data, done) {
+  let c = 0
+  for (const d in data) {
+    client.gauge(`${prefix}.${d}`, data[d], () => {
+      if (++c === Object.keys(data).length) {
+        done()
+      }
+    })
+  }
+}
+
 function notifyHipchat(message, options, done) {
   const hipchatClient = new Hipchat(options.hipchat.apiKey)
   const params = {
@@ -51,10 +62,10 @@ function notifyStatsd(data, options, done) {
 
   async.series([
     (callback) => {
-      client.gauge("fv.speedindex", data.data.average.firstView.SpeedIndex, callback)
+      gaugeStats("firstView", client, data.data.average.firstView, callback)
     },
     (callback) => {
-      client.gauge("rv.speedindex", data.data.average.repeatView.SpeedIndex, callback)
+      gaugeStats("repeatView", client, data.data.average.repeatView, callback)
     }
   ], () => {
     client.close()
