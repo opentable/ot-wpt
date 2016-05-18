@@ -2,6 +2,8 @@
   "extends": "opentable",
   "rules": {
     "max-len": 0,
-    "no-param-reassign": 0
+    "no-param-reassign": 0,
+    "guard-for-in": 0,
+    "no-loop-func": 0
   }
 }
