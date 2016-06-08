@@ -10,7 +10,7 @@ $ npm install ot-wpt --save-dev
 ## Usage
 
 ```js
-var wpt = require("ot-wpt");
+var wpt = require('ot-wpt');
 
 wpt({
   testUrl: 'http://google.com',
