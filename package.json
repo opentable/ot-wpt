@@ -1,6 +1,6 @@
 {
   "name": "ot-wpt",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Submits webpagetest results to hipchat, statsd, and logstash",
   "main": "dist/index.js",
   "scripts": {
