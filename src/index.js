@@ -141,15 +141,34 @@ function checkTestStatus(wpt, testId, options, done) {
   })
 }
 
-export default function makeRequest(options, done) {
+function makeRequest(options, done) {
   assert(options.instanceUrl || options.apiKey, "Please provide a valid webpagetest api key")
 
   const wpt = new WebPageTest(options.instanceUrl, options.apiKey)
 
+  function errorHandler(err) {
+    console.error(err)
+    done(err)
+  }
+
   wpt.runTest(options.testUrl, options.wpt, (err, data) => {
+    if (err) {
+      errorHandler(err)
+      return
+    }
     if (data.statusCode === 200) {
       const testId = data.data.testId
       checkTestStatus(wpt, testId, options, done)
+    } else {
+      errorHandler(data)
     }
   })
 }
+
+makeRequest.WebPageTest = WebPageTest
+
+// Support require statement
+module.exports = makeRequest
+
+// Support es6 imports
+export default makeRequest
