@@ -18,11 +18,11 @@
     "webpagetest"
   ],
   "devDependencies": {
-    "babel-cli": "^6.5.1",
-    "babel-preset-es2015": "^6.5.0",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-loose": "^7.0.0",
-    "eslint": "^2.4.0",
-    "eslint-config-opentable": "^2.0.1"
+    "eslint": "^2.12.0",
+    "eslint-config-opentable": "^3.0.2"
   },
   "dependencies": {
     "async": "^1.5.2",

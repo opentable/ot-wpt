@@ -9,13 +9,14 @@ import assert from "assert"
 
 function gaugeStats(prefix, client, data, done) {
   let c = 0
-  for (const d in data) {
-    client.gauge(`${prefix}.${d}`, data[d], () => {
-      if (++c === Object.keys(data).length) {
+  const keys = Object.keys(data)
+  keys.forEach((key) => {
+    client.gauge(`${prefix}.${key}`, data[key], () => {
+      if (++c === keys.length) {
         done()
       }
     })
-  }
+  })
 }
 
 function notifyHipchat(message, options, done) {
