@@ -74,7 +74,7 @@ function notifyStatsd(data, options, done) {
 }
 
 function getTestResults(wpt, testId, options, done) {
-  return wpt.getTestResults(testId, (err, data) => {
+  wpt.getTestResults(testId, (err, data) => {
     console.log(`http://www.webpagetest.org/result/${testId}/`)
 
     if (options.wpt.runs !== data.data.successfulFVRuns) {

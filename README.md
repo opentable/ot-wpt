@@ -20,6 +20,8 @@ wpt({
     runs: 1,
     location: 'Dulles:Chrome'
   },
+  // Below options are optional
+  instanceUrl: 'www.webpagetest.org',
   hipchat: {
     apiKey: 'API_KEY_HERE',
     roomId: 12345
@@ -33,7 +35,8 @@ wpt({
     port: 8125,
     prefix: 'PREFIX_HERE'
   }
-}, function() {
+}, function(error) {
   // Test finished
+  // error is null if there's no error
 });
 ```
