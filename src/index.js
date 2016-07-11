@@ -152,6 +152,12 @@ function makeRequest(options, done) {
     done(err)
   }
 
+  if (!options.wpt) {
+    options.wpt = {
+      runs: 1
+    }
+  }
+
   wpt.runTest(options.testUrl, options.wpt, (err, data) => {
     if (err) {
       errorHandler(err)
